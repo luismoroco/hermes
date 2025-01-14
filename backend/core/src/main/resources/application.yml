@@ -1,3 +1,7 @@
+logging:
+  level:
+    liquibase: DEBUG
+
 spring:
   application:
     name: hermes-core
@@ -11,3 +15,19 @@ spring:
       database: hermes
       host: localhost
       port: 27017
+  liquibase:
+    enabled: true
+    url: jdbc:postgresql://localhost:5432/hermes
+    user: admin
+    password: admin123
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: off
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        globally_quoted_identifiers: true
