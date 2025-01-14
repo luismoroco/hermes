@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:13.0
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin123
+      - POSTGRES_DB=postgres
+    volumes:
+      - ./config/database/setup.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    environment:
+      REDIS_PASSWORD: session
+    ports:
+      - "6379:6379"
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+
