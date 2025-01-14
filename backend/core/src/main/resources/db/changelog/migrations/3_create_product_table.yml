@@ -1,0 +1,81 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3-create-product-table
+      author: db.hermes.dev
+      changes:
+        - createTable:
+            tableName: product
+            columns:
+              - column:
+                  name: product_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: TEXT
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: description
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: NUMERIC(12,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: enabled
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: archived
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: featured
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: stock
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+        - sql:
+            dbms: postgresql
+            sql: |
+              ALTER TABLE product
+              ADD CONSTRAINT check_name_length 
+                CHECK (char_length(name) > 1) NOT VALID,
+              ADD CONSTRAINT check_description_length 
+                CHECK (char_length(description) > 1) NOT VALID,
+              ADD CONSTRAINT check_price_greater_than
+                CHECK (price >= 0) NOT VALID;
+
+        - sql:
+            dbms: postgresql
+            sql: |
+              CREATE INDEX index_product_on_name ON product USING gin (name gin_trgm_ops);
+              CREATE TRIGGER update_product_updated_at BEFORE
+              UPDATE
+              ON "product" FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();

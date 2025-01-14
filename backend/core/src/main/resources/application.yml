@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: hermes-core
+    version: 0.0.1
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/hermes
+    username: admin
+    password: admin123
+  data:
+    mongodb:
+      database: hermes
+      host: localhost
+      port: 27017

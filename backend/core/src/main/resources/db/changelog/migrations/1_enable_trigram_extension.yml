@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-enable-trigram-extension
+      author: note.harbor.dev
+      changes:
+        - sql:
+            splitStatements: false
+            stripComments: true
+            dbms: postgresql
+            sql: |
+              CREATE EXTENSION IF NOT EXISTS pg_trgm;
