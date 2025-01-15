@@ -60,6 +60,11 @@ public class OrderDaoMg implements OrderDao {
 
   @Override
   public Mono<Order> findByUserIdAndOrderId(Optional<Long> userId, String orderId) {
-    return this.repository.findByUserIdAndOrderId(userId, orderId).map(OrderEntity::toModel);
+    var criteria = Criteria.where("orderId").is(orderId);
+    userId.ifPresent(id -> criteria.and("userId").is(id));
+
+    var query = Query.query(criteria);
+    return Mono.defer(() -> this.template.findOne(query, OrderEntity.class)
+      .map(OrderEntity::toModel));
   }
 }
