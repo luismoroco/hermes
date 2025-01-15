@@ -7,8 +7,10 @@ import com.hermes.core.modules.order.dto.MinimalOrderDTO;
 import com.hermes.core.modules.order.dto.OrderDTO;
 import com.hermes.core.modules.order.request.DeleteOrderRequest;
 import com.hermes.core.modules.order.request.GetOrderRequest;
+import com.hermes.core.modules.order.request.UpdateOrderRequest;
 import com.hermes.core.modules.order.web.validator.CreateOrderWebRequest;
 import com.hermes.core.modules.order.web.validator.GetOrdersWebRequest;
+import com.hermes.core.modules.order.web.validator.UpdateOrderWebRequest;
 import com.hermes.core.modules.user.model.UserType;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -83,5 +85,12 @@ public class OrderController {
   public Mono<ResponseEntity<Void>> deleteOrder(@PathVariable final String orderId) {
     return this.useCase.deleteOrder(new DeleteOrderRequest(orderId))
       .then(Mono.just(ResponseEntity.noContent().build()));
+  }
+
+  @PutMapping("/{orderId}")
+  @PreAuthorize("hasRole('MANAGER')")
+  public Mono<ResponseEntity<OrderDTO>> updateOrder(@PathVariable final String orderId, @Valid @RequestBody final UpdateOrderWebRequest webRequest) {
+    return this.useCase.updateOrder(webRequest.buildRequest(Map.of("orderId", orderId)))
+      .map(order -> ResponseEntity.ok().body(order));
   }
 }

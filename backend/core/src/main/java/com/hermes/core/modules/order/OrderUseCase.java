@@ -14,6 +14,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class OrderUseCase {
@@ -83,5 +84,17 @@ public class OrderUseCase {
       .flatMap(count -> Boolean.TRUE.equals(count.equals(1))
         ? this.service.deleteByOrderIdIn(List.of(request.getOrderId()))
         : Mono.error(new IllegalStateException("Error while deleting order")));
+  }
+
+  public Mono<OrderDTO> updateOrder(final UpdateOrderRequest request) {
+    return this.service.findByOrderId(request.getOrderId())
+      .flatMap(order -> {
+        if (Objects.nonNull(request.getOrderStatusType())) {
+          order.setOrderStatusType(request.getOrderStatusType());
+        }
+
+        return this.service.saveOrder(order)
+          .map(o -> o.map(OrderDTO.class));
+      });
   }
 }

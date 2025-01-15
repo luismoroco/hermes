@@ -16,7 +16,6 @@ import reactor.core.publisher.Mono;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestControllerAdvice
 public class RestExceptionHandler {
   @ExceptionHandler({NotFoundException.class})
   public Mono<ResponseEntity<ApiError> > notFoundException(NotFoundException exc) {
