@@ -5,7 +5,10 @@ import com.hermes.core.modules.product.dao.ProductDao;
 import com.hermes.core.modules.product.model.Product;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -31,5 +34,9 @@ public class ProductService {
   public Mono<Product> findProductById(Long productId) {
     return this.dao.findById(productId)
       .switchIfEmpty(Mono.error(new BadRequestException("Product Not found")));
+  }
+
+  public Flux<Product> findAllByProductIdIn(List<Long> productIds) {
+    return this.dao.findAllByIdIn(productIds);
   }
 }

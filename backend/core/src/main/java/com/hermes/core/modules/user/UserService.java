@@ -24,13 +24,9 @@ public class UserService {
 
   public Mono<Void> existsByUsername(String username) {
     return this.dao.existsByUsername(username)
-      .flatMap(userExist -> {
-        if (Boolean.TRUE.equals(userExist)) {
-          return Mono.error(new BadRequestException("Username already exists"));
-        }
-
-        return Mono.empty();
-      });
+      .flatMap(userExist -> Boolean.TRUE.equals(userExist)
+        ? Mono.error(new BadRequestException("Username already exists"))
+        : Mono.empty());
   }
 
   public Mono<User> saveUser(User user) {

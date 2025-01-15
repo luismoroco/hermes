@@ -30,17 +30,15 @@ public class AuthUseCase {
   @Transactional
   public Mono<User> signUpUser(final SignUpRequest request) {
     return this.userService.existsByUsername(request.getUsername())
-      .then(this.createUser(request));
-  }
+      .then(Mono.defer(() -> {
+        var user = new User();
+        user.setUserType(request.getUserType());
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setUsername(request.getUsername());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-  private Mono<User> createUser(final SignUpRequest request) {
-    var user = new User();
-    user.setUserType(request.getUserType());
-    user.setFirstName(request.getFirstName());
-    user.setLastName(request.getLastName());
-    user.setUsername(request.getUsername());
-    user.setPassword(passwordEncoder.encode(request.getPassword()));
-
-    return this.userService.saveUser(user);
+        return this.userService.saveUser(user);
+      }));
   }
 }

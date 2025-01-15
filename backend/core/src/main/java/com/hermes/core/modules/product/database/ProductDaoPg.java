@@ -7,7 +7,10 @@ import com.hermes.core.modules.product.database.product.ProductRepository;
 import com.hermes.core.modules.product.model.Product;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @Service
 @Qualifier("postgresql")
@@ -32,5 +35,10 @@ public class ProductDaoPg implements ProductDao {
   public Mono<Product> save(Product product) {
     var productEntity = Mapper.get().map(product, ProductEntity.class);
     return this.repository.save(productEntity).map(ProductEntity::toModel);
+  }
+
+  @Override
+  public Flux<Product> findAllByIdIn(List<Long> productIds) {
+    return this.repository.findAllByProductIdIn(productIds).map(ProductEntity::toModel);
   }
 }

@@ -27,6 +27,7 @@ spring:
       database: hermes
       host: localhost
       port: 27017
+      uri: mongodb://admin:admin123@localhost:27017/hermes?authSource=admin
     redis:
       url: redis://localhost:6379
       host: localhost
