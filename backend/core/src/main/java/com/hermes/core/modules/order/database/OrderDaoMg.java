@@ -7,6 +7,9 @@ import com.hermes.core.modules.order.database.order.OrderRepository;
 import com.hermes.core.modules.order.model.Order;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -18,11 +21,14 @@ import java.util.Optional;
 @Qualifier("mongo")
 public class OrderDaoMg implements OrderDao {
   private final OrderRepository repository;
+  private final ReactiveMongoTemplate template;
 
   public OrderDaoMg(
-    OrderRepository repository
+    OrderRepository repository,
+    ReactiveMongoTemplate template
   ) {
     this.repository = repository;
+    this.template = template;
   }
 
   @Override
@@ -43,8 +49,13 @@ public class OrderDaoMg implements OrderDao {
 
   @Override
   public Flux<Order> findAllByUserId(Optional<Long> userId, Integer page, Integer size) {
-    return this.repository.findAllByUserId(userId, PageRequest.of(page - 1, size))
-      .map(OrderEntity::toModel);
+    var cb = new Criteria();
+    if (userId.isPresent()) {
+      cb = Criteria.where("userId").is(userId.get());
+    }
+
+    var query = Query.query(cb).with(PageRequest.of(page - 1, size));
+    return Flux.from(template.find(query, OrderEntity.class)).map(OrderEntity::toModel);
   }
 
   @Override
