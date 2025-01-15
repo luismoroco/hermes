@@ -11,6 +11,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -39,5 +40,14 @@ public class OrderService {
           )
       )
       .then();
+  }
+
+  public Flux<Order> getOrders(Optional<Long> userId, Integer page, Integer size) {
+    return this.dao.findAllByUserId(userId, page, size);
+  }
+
+  public Mono<Order> findByUserIdAndOrderId(Optional<Long> userId, String orderId) {
+    return this.dao.findByUserIdAndOrderId(userId, orderId)
+      .switchIfEmpty(Mono.error(new BadRequestException("Order not found")));
   }
 }

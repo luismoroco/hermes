@@ -1,13 +1,18 @@
 package com.hermes.core.modules.order;
 
+import com.hermes.core.modules.order.dto.MinimalOrderDTO;
+import com.hermes.core.modules.order.dto.OrderDTO;
 import com.hermes.core.modules.order.model.Order;
 import com.hermes.core.modules.order.model.OrderItem;
 import com.hermes.core.modules.order.model.OrderStatusType;
 import com.hermes.core.modules.order.request.CreateOrderRequest;
+import com.hermes.core.modules.order.request.GetOrderRequest;
+import com.hermes.core.modules.order.request.GetOrdersRequest;
 import com.hermes.core.modules.order.request.OrderItemRequest;
 import com.hermes.core.modules.product.ProductService;
 import com.hermes.core.modules.product.model.Product;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
@@ -26,7 +31,7 @@ public class OrderUseCase {
     this.productService = productService;
   }
 
-  public Mono<Order> createOrder(final CreateOrderRequest request) {
+  public Mono<OrderDTO> createOrder(final CreateOrderRequest request) {
     return this.service.validateOrderItemsConstraints(request.getItems())
       .then(Mono.defer(() -> {
         var order = new Order();
@@ -60,8 +65,19 @@ public class OrderUseCase {
             order.setAmount(totalAmount);
             order.setOrderItems(items);
 
-            return this.service.saveOrder(order);
+            return this.service.saveOrder(order)
+              .map(o -> o.map(OrderDTO.class));
           });
       }));
+  }
+
+  public Flux<MinimalOrderDTO> getOrders(final GetOrdersRequest request) {
+    return this.service.getOrders(request.getUserId(), request.getPage(), request.getSize())
+      .map(order -> order.map(MinimalOrderDTO.class));
+  }
+
+  public Mono<OrderDTO> getOrder(final GetOrderRequest request) {
+    return this.service.findByUserIdAndOrderId(request.getUserId(), request.getOrderId())
+      .map(order -> order.map(OrderDTO.class));
   }
 }
