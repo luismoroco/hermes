@@ -35,12 +35,12 @@ public class JwtScrooge implements Scrooge<JwtKeys> {
 
   @Override
   public <U extends User> Mono<JwtKeys> generateKeys(U u) {
-    String token = this.jwtService.buildToken(u.getUserName());
+    String token = this.jwtService.buildToken(u.getUsername());
     var session = new SessionUser();
     session.setUserId(u.getUserId());
     session.setUserType(u.getUserType());
 
-    return this.cacheService.put(CacheTopic.SESSION, u.getUserName(), session)
+    return this.cacheService.put(CacheTopic.SESSION, u.getUsername(), session)
       .thenReturn(new JwtKeys(token));
   }
 

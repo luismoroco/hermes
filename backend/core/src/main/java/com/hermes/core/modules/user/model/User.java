@@ -14,6 +14,6 @@ public class User {
   private UserType userType;
   private String firstName;
   private String lastName;
-  private String userName;
+  private String username;
   private String password;
 }

@@ -36,8 +36,8 @@ public class AuthUseCase {
     user.setUserType(request.getUserType());
     user.setFirstName(request.getFirstName());
     user.setLastName(request.getLastName());
+    user.setUsername(request.getUsername());
     user.setPassword(passwordEncoder.encode(request.getPassword()));
-    user.setPassword(request.getPassword());
 
     return this.userService.saveUser(user);
   }

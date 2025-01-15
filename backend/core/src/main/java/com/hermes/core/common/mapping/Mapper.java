@@ -8,7 +8,7 @@ public class Mapper {
   private final ModelMapper mapper;
   private static Mapper instance;
 
-  private Mapper(ModelMapper mapper) {
+  public Mapper(ModelMapper mapper) {
     this.mapper = mapper;
 
     if (Objects.nonNull(instance)) {
