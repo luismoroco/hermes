@@ -2,6 +2,12 @@ logging:
   level:
     liquibase: DEBUG
 
+application:
+  security:
+    jwt:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      expiration: 86400000
+
 spring:
   application:
     name: hermes-core
@@ -15,6 +21,13 @@ spring:
       database: hermes
       host: localhost
       port: 27017
+    redis:
+      url: redis://localhost:6379
+      host: localhost
+      password: session
+      port: 6379
+      repositories:
+        enabled: false
   liquibase:
     enabled: true
     url: jdbc:postgresql://localhost:5432/hermes
@@ -31,3 +44,5 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
         globally_quoted_identifiers: true
+  main:
+    allow-bean-definition-overriding: true
