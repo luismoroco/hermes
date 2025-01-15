@@ -7,6 +7,7 @@ import com.hermes.core.modules.user.model.User;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -26,6 +27,7 @@ public class AuthUseCase {
     return this.userService.findByUsername(request.getUsername());
   }
 
+  @Transactional
   public Mono<User> signUpUser(final SignUpRequest request) {
     return this.userService.existsByUsername(request.getUsername())
       .then(this.createUser(request));

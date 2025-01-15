@@ -5,6 +5,7 @@ import com.hermes.core.security.JwtAuthenticationManager;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.web.server.context.ServerSecurityContextRepository;
@@ -30,11 +31,13 @@ public class JwtSecurityContextRepository implements ServerSecurityContextReposi
   @Override
   public Mono<SecurityContext> load(ServerWebExchange exchange) {
     ServerHttpRequest request = exchange.getRequest();
-    return Mono.justOrEmpty(JwtService.getBearerToken(request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION)))
-      .flatMap(token -> {
-        var authentication = new UsernamePasswordAuthenticationToken(token, token);
-        return this.authenticationManager.authenticate(authentication)
-          .map(SecurityContextImpl::new);
-      });
+    String authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+    if (authHeader != null && authHeader.startsWith("Bearer ")) {
+      var authToken = authHeader.substring(7);
+      var auth = new UsernamePasswordAuthenticationToken(authToken, authToken);
+      return this.authenticationManager.authenticate(auth).map(SecurityContextImpl::new);
+    } else {
+      return Mono.empty();
+    }
   }
 }

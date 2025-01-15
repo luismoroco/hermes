@@ -3,6 +3,7 @@ package com.hermes.core.security;
 import com.hermes.core.security.repository.JwtSecurityContextRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -29,7 +30,7 @@ public class SecurityConfig {
     return http
       .csrf(ServerHttpSecurity.CsrfSpec::disable)
       .authorizeExchange(exchanges -> exchanges
-        .pathMatchers(PUBLIC_URLS).permitAll()
+        .pathMatchers(HttpMethod.POST, PUBLIC_URLS).permitAll()
         .anyExchange().authenticated())
       .authenticationManager(this.jwtAuthenticationManager)
       .securityContextRepository(this.jwtSecurityContextRepository)

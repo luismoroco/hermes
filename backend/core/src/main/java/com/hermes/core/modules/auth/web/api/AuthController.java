@@ -34,7 +34,7 @@ public class AuthController {
     this.authenticationManager = authenticationManager;
   }
 
-  @PostMapping("log-in")
+  @PostMapping("/log-in")
   public Mono<ResponseEntity<? extends Keys>> loginUser(@Valid @RequestBody final LoginWebRequest webRequest) {
     var auth = new UsernamePasswordAuthenticationToken(webRequest.getUsername(), webRequest.getPassword());
     return this.authenticationManager.authenticate(auth)
@@ -42,7 +42,7 @@ public class AuthController {
       .flatMap(this::performAuthorization);
   }
 
-  @PostMapping("sign-up")
+  @PostMapping("/sign-up")
   public Mono<ResponseEntity<? extends Keys>> signUpUser(@Valid @RequestBody final SignUpWebRequest webRequest) {
     return this.useCase.signUpUser(webRequest.buildRequest())
       .flatMap(this::performAuthorization);

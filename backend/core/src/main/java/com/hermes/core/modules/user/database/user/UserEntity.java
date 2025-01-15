@@ -17,10 +17,10 @@ import java.util.List;
 
 @Getter
 @Setter
-@Table("users")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "users")
 public class UserEntity implements UserDetails, ModelAdapter<User> {
   @Id private Long userId;
   private UserType userType;
@@ -28,6 +28,7 @@ public class UserEntity implements UserDetails, ModelAdapter<User> {
   private String lastName;
   private String username;
   private String password;
+
   private Timestamp createdAt;
   private Timestamp updatedAt;
 

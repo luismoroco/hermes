@@ -33,6 +33,9 @@ public class JwtAuthenticationManager implements ReactiveAuthenticationManager {
   @Override
   public Mono<Authentication> authenticate(Authentication authentication) {
     String token = authentication.getCredentials().toString();
+
+    System.out.println("token: " + token);
+
     String username = this.jwtService.getSubject(token);
     if (Objects.nonNull(username) && this.jwtService.isValid(token, username)) {
       return this.cacheService.get(CacheTopic.SESSION, username, SessionUser.class)

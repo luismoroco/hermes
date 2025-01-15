@@ -1,33 +1,33 @@
 package com.hermes.core.modules.product.database.product;
 
 import com.hermes.core.common.mapping.Mapper;
-import com.hermes.core.common.model.AuditableModel;
 import com.hermes.core.common.model.ModelAdapter;
 import com.hermes.core.modules.product.model.Product;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+
+import java.sql.Timestamp;
 
 @Getter
 @Setter
-@Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "product")
-public class ProductEntity extends AuditableModel implements ModelAdapter<Product> {
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long productId;
-  @NotBlank private String name;
-  @NotBlank private String description;
-  @NotNull private Boolean enabled = Boolean.TRUE;
-  @NotNull private Boolean archived = Boolean.FALSE;
-  @NotNull private Boolean featured = Boolean.FALSE;
-  @PositiveOrZero private Integer stock;
-  @PositiveOrZero private Double price;
+public class ProductEntity implements ModelAdapter<Product> {
+  @Id
+  private Long productId;
+  private String name;
+  private String description;
+  private Boolean enabled = Boolean.TRUE;
+  private Boolean archived = Boolean.FALSE;
+  private Boolean featured = Boolean.FALSE;
+  private Integer stock;
+  private Double price;
+
+  private Timestamp createdAt;
+  private Timestamp updatedAt;
 
   @Override
   public Product toModel() {
