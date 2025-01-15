@@ -1,10 +1,10 @@
-package com.hermes.core.scrooge.jwt;
+package com.hermes.core.common.scrooge.jwt;
 
 import com.hermes.core.common.error.exc.UnauthorizedException;
 import com.hermes.core.common.jwt.JwtService;
 import com.hermes.core.redis.CacheService;
 import com.hermes.core.redis.model.CacheTopic;
-import com.hermes.core.scrooge.Scrooge;
+import com.hermes.core.common.scrooge.Scrooge;
 import com.hermes.core.common.session.model.SessionUser;
 import com.hermes.core.modules.user.model.User;
 import org.springframework.beans.factory.annotation.Qualifier;

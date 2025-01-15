@@ -1,4 +1,4 @@
-package com.hermes.core.scrooge;
+package com.hermes.core.common.scrooge;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.hermes.core.security;
+package com.hermes.core.common.security;
 
 import com.hermes.core.modules.user.database.user.UserRepository;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;

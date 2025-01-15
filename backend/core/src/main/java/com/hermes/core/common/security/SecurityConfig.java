@@ -1,6 +1,6 @@
-package com.hermes.core.security;
+package com.hermes.core.common.security;
 
-import com.hermes.core.security.repository.JwtSecurityContextRepository;
+import com.hermes.core.common.security.repository.JwtSecurityContextRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

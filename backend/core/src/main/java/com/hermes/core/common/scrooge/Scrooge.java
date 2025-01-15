@@ -1,4 +1,4 @@
-package com.hermes.core.scrooge;
+package com.hermes.core.common.scrooge;
 
 import com.hermes.core.common.session.model.SessionUser;
 import com.hermes.core.modules.user.model.User;

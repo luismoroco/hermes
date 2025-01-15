@@ -16,8 +16,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Table(name = "product")
 public class ProductEntity implements ModelAdapter<Product> {
-  @Id
-  private Long productId;
+  @Id private Long productId;
   private String name;
   private String description;
   private Boolean enabled = Boolean.TRUE;

@@ -1,6 +1,6 @@
-package com.hermes.core.scrooge.jwt;
+package com.hermes.core.common.scrooge.jwt;
 
-import com.hermes.core.scrooge.Keys;
+import com.hermes.core.common.scrooge.Keys;
 import lombok.Getter;
 
 @Getter

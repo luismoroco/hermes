@@ -1,11 +1,9 @@
-package com.hermes.core.security.repository;
+package com.hermes.core.common.security.repository;
 
-import com.hermes.core.common.jwt.JwtService;
-import com.hermes.core.security.JwtAuthenticationManager;
+import com.hermes.core.common.security.JwtAuthenticationManager;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.web.server.context.ServerSecurityContextRepository;
