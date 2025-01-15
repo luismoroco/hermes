@@ -5,6 +5,7 @@ import com.hermes.core.common.scrooge.Scrooge;
 import com.hermes.core.modules.order.OrderUseCase;
 import com.hermes.core.modules.order.dto.MinimalOrderDTO;
 import com.hermes.core.modules.order.dto.OrderDTO;
+import com.hermes.core.modules.order.request.DeleteOrderRequest;
 import com.hermes.core.modules.order.request.GetOrderRequest;
 import com.hermes.core.modules.order.web.validator.CreateOrderWebRequest;
 import com.hermes.core.modules.order.web.validator.GetOrdersWebRequest;
@@ -75,5 +76,12 @@ public class OrderController {
         return this.useCase.getOrder(request)
           .map(order -> ResponseEntity.ok().body(order));
       });
+  }
+
+  @DeleteMapping("/{orderId}")
+  @PreAuthorize("hasRole('MANAGER')")
+  public Mono<ResponseEntity<Void>> deleteOrder(@PathVariable final String orderId) {
+    return this.useCase.deleteOrder(new DeleteOrderRequest(orderId))
+      .then(Mono.just(ResponseEntity.noContent().build()));
   }
 }

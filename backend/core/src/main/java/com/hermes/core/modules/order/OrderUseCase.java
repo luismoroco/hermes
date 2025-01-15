@@ -5,10 +5,7 @@ import com.hermes.core.modules.order.dto.OrderDTO;
 import com.hermes.core.modules.order.model.Order;
 import com.hermes.core.modules.order.model.OrderItem;
 import com.hermes.core.modules.order.model.OrderStatusType;
-import com.hermes.core.modules.order.request.CreateOrderRequest;
-import com.hermes.core.modules.order.request.GetOrderRequest;
-import com.hermes.core.modules.order.request.GetOrdersRequest;
-import com.hermes.core.modules.order.request.OrderItemRequest;
+import com.hermes.core.modules.order.request.*;
 import com.hermes.core.modules.product.ProductService;
 import com.hermes.core.modules.product.model.Product;
 import org.springframework.stereotype.Component;
@@ -79,5 +76,12 @@ public class OrderUseCase {
   public Mono<OrderDTO> getOrder(final GetOrderRequest request) {
     return this.service.findByUserIdAndOrderId(request.getUserId(), request.getOrderId())
       .map(order -> order.map(OrderDTO.class));
+  }
+
+  public Mono<Void> deleteOrder(final DeleteOrderRequest request) {
+    return this.service.countByOrderIdIn(List.of(request.getOrderId()))
+      .flatMap(count -> Boolean.TRUE.equals(count.equals(1))
+        ? this.service.deleteByOrderIdIn(List.of(request.getOrderId()))
+        : Mono.error(new IllegalStateException("Error while deleting order")));
   }
 }

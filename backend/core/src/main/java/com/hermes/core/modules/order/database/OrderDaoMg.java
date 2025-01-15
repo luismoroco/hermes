@@ -67,4 +67,14 @@ public class OrderDaoMg implements OrderDao {
     return Mono.defer(() -> this.template.findOne(query, OrderEntity.class)
       .map(OrderEntity::toModel));
   }
+
+  @Override
+  public Mono<Integer> countByOrderIdIn(List<String> orderIds) {
+    return this.repository.countAllByOrderIdIn(orderIds).map(Long::intValue);
+  }
+
+  @Override
+  public Mono<Void> deleteByOrderIdIn(List<String> orderIds) {
+    return this.repository.deleteAllByOrderIdIn(orderIds);
+  }
 }

@@ -50,4 +50,17 @@ public class OrderService {
     return this.dao.findByUserIdAndOrderId(userId, orderId)
       .switchIfEmpty(Mono.error(new BadRequestException("Order not found")));
   }
+
+  public Mono<Order> findByOrderId(String orderId) {
+    return this.dao.findById(orderId)
+      .switchIfEmpty(Mono.error(new BadRequestException("Order not found")));
+  }
+
+  public Mono<Integer> countByOrderIdIn(List<String> orderIds) {
+    return this.dao.countByOrderIdIn(orderIds);
+  }
+
+  public Mono<Void> deleteByOrderIdIn(List<String> orderIds) {
+    return this.dao.deleteByOrderIdIn(orderIds);
+  }
 }
