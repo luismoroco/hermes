@@ -1,4 +1,4 @@
-package com.hermes.core.common.model;
+package com.hermes.core.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

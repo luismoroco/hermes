@@ -1,7 +1,7 @@
 package com.hermes.core.modules.order.database.order;
 
 import com.hermes.core.common.mapping.Mapper;
-import com.hermes.core.common.model.ModelAdapter;
+import com.hermes.core.common.ModelAdapter;
 import com.hermes.core.modules.currency.CurrencyType;
 import com.hermes.core.modules.order.database.order_item.OrderItemEntity;
 import com.hermes.core.modules.order.model.Order;

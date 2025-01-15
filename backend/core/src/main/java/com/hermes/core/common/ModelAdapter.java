@@ -1,4 +1,4 @@
-package com.hermes.core.common.model;
+package com.hermes.core.common;
 
 public interface ModelAdapter<T> {
   T toModel();

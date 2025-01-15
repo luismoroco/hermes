@@ -1,4 +1,4 @@
-package com.hermes.core.common.jwt;
+package com.hermes.core.common;
 
 import com.hermes.core.common.session.exc.InvalidJwtException;
 import io.jsonwebtoken.Claims;

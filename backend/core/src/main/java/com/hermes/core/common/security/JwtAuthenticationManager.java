@@ -1,7 +1,7 @@
 package com.hermes.core.common.security;
 
 import com.hermes.core.common.error.exc.BadRequestException;
-import com.hermes.core.common.jwt.JwtService;
+import com.hermes.core.common.JwtService;
 import com.hermes.core.common.session.model.SessionUser;
 import com.hermes.core.redis.CacheService;
 import com.hermes.core.redis.model.CacheTopic;

@@ -51,6 +51,8 @@ public class OrderUseCase {
               var orderItem = new OrderItem();
               orderItem.setProductId(orderItemRequest.getProductId());
               orderItem.setQuantity(orderItemRequest.getQuantity());
+              orderItem.setProductName(product.getName());
+              orderItem.setPrice(product.getPrice());
 
               items.add(orderItem);
             }

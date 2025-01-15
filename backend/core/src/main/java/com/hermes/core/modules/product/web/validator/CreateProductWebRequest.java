@@ -1,6 +1,6 @@
 package com.hermes.core.modules.product.web.validator;
 
-import com.hermes.core.common.request.RequestAdapter;
+import com.hermes.core.common.RequestAdapter;
 import com.hermes.core.modules.product.request.CreateProductRequest;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -1,6 +1,6 @@
 package com.hermes.core.modules.auth.web.validator;
 
-import com.hermes.core.common.request.RequestAdapter;
+import com.hermes.core.common.RequestAdapter;
 import com.hermes.core.modules.auth.request.SignUpRequest;
 import com.hermes.core.modules.user.model.UserType;
 import jakarta.validation.constraints.Email;

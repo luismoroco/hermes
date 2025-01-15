@@ -1,7 +1,7 @@
 package com.hermes.core.modules.user.database.user;
 
 import com.hermes.core.common.mapping.Mapper;
-import com.hermes.core.common.model.ModelAdapter;
+import com.hermes.core.common.ModelAdapter;
 import com.hermes.core.modules.user.model.User;
 import com.hermes.core.modules.user.model.UserType;
 import lombok.*;

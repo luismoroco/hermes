@@ -1,6 +1,6 @@
 package com.hermes.core.modules.order.web.validator;
 
-import com.hermes.core.common.request.RequestAdapter;
+import com.hermes.core.common.RequestAdapter;
 import com.hermes.core.modules.currency.CurrencyType;
 import com.hermes.core.modules.order.request.CreateOrderRequest;
 import jakarta.validation.constraints.NotNull;

@@ -1,6 +1,6 @@
 package com.hermes.core.modules.order.web.validator;
 
-import com.hermes.core.common.request.RequestAdapter;
+import com.hermes.core.common.RequestAdapter;
 import com.hermes.core.modules.order.request.OrderItemRequest;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

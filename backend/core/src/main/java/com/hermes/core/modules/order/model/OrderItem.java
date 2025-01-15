@@ -12,4 +12,6 @@ import lombok.Setter;
 public class OrderItem {
   private Long productId;
   private Integer quantity;
+  private String productName;
+  private Double price;
 }

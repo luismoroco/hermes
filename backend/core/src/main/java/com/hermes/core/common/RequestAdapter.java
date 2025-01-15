@@ -1,4 +1,4 @@
-package com.hermes.core.common.request;
+package com.hermes.core.common;
 
 import com.hermes.core.common.mapping.Mapper;
 

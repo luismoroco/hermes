@@ -1,7 +1,7 @@
 package com.hermes.core.modules.product.database.product;
 
 import com.hermes.core.common.mapping.Mapper;
-import com.hermes.core.common.model.ModelAdapter;
+import com.hermes.core.common.ModelAdapter;
 import com.hermes.core.modules.product.model.Product;
 import lombok.*;
 import org.springframework.data.annotation.Id;
